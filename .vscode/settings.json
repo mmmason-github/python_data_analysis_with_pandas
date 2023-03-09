@@ -9,7 +9,7 @@
         "**/.gitignore": true,
         "**/.hg": true,
         "**/.mypy_cache/": true,
-        "**/.pre-commit-config.yaml": false,
+        "**/.pre-commit-config.yaml": true,
         "**/.svn": true,
         "**/.venv/": true,
         "**/CVS": true,
