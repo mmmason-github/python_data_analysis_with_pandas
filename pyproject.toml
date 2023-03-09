@@ -1,0 +1,190 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
+[tool.black]
+exclude = '''
+(
+  /(
+      \.eggs
+    | \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+)
+'''
+line-length = 79
+target-version = ["py39", "py310", "py311"]
+
+[tool.flake8]
+exclude = ".venv"
+max-complexity = 10
+max-line-length = 79
+
+[tool.isort]
+combine_as_imports = true
+ensure_newline_before_comments = true
+force_grid_wrap = 0
+force_single_line = true
+include_trailing_comma = true
+line_length = 79
+lines_after_imports = 2
+lines_between_types = 2
+multi_line_output = 3
+profile = "black"
+use_parentheses = true
+
+[tool.mypy]
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_untyped_defs = true
+explicit_package_bases = true
+follow_imports = "silent"
+ignore_missing_imports = true
+namespace_packages = true
+no_implicit_reexport = true
+show_error_codes = true
+strict = true
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = [
+    'poetry.console.commands.self.show.plugins',
+    'poetry.plugins.plugin_manager',
+    'poetry.repositories.installed_repository',
+    'poetry.utils.env',
+]
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = false
+module = [
+    'cachecontrol.*',
+    'lockfile.*',
+    'pexpect.*',
+    'requests_toolbelt.*',
+    'shellingham.*',
+    'virtualenv.*',
+    'xattr.*',
+]
+
+[tool.nbqa.mutate]
+black = 1
+flake8 = 1
+isort = 1
+mypy = 1
+
+[tool.poe.tasks]
+check_nb = """
+nbqa
+mypy 
+    python_data_analysis_with_pandas/notebooks/*
+    python_data_analysis_with_pandas/python/*
+"""
+check_py = """
+mypy 
+    python_data_analysis_with_pandas/python/*
+"""
+clean = """
+rm -rf .mypy_cache
+       dist
+       ./**/__pycache__
+"""
+export = """
+jupyter nbconvert python_data_analysis_with_pandas/notebooks/*.ipynb 
+    --to         python
+    --output-dir python_data_analysis_with_pandas/python/
+"""
+format_nb = """
+nbqa
+black 
+    python_data_analysis_with_pandas/notebooks/*
+    python_data_analysis_with_pandas/python/*
+"""
+format_py = """
+black 
+    python_data_analysis_with_pandas/python/*
+"""
+lint_nb = """
+nbqa
+flake8 
+    python_data_analysis_with_pandas/notebooks/*
+"""
+lint_py = """
+flake8 
+    python_data_analysis_with_pandas/python/*
+"""
+precommit = "pre-commit run --all-files"
+sort_nb = """
+nbqa
+isort 
+    python_data_analysis_with_pandas/notebooks/*
+"""
+sort_py = """
+isort 
+    python_data_analysis_with_pandas/python/*
+"""
+
+[tool.poetry]
+authors = ["mmmason <mmmason.github@gmail.com>"]
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python",
+    "Topic :: Software Development :: Data Analysis",
+]
+description = "Set of notebooks of exploring data analysis in python"
+documentation = "https://mmmason-github.github.io/python_data_analysis_with_pandas/docs"
+homepage = "https://mmmason-github.github.io/python_data_analysis_with_pandas/home"
+keywords = ["data analysis", "python"]
+license = "LICENSE.txt"
+maintainers = ["mmmason <mmmason.github@gmail.com>"]
+name = "python_data_analysis_with_pandas"
+packages = [
+    { format = "sdist", include = ".editorconfig" },
+    { format = "sdist", include = "LICENSE.txt" },
+    { format = "sdist", include = "README.md" },
+    { format = "sdist", include = "docs/docs.html" },
+    { format = "sdist", include = "docs/home.html" },
+    { format = "sdist", include = "poetry.lock" },
+    { format = "sdist", include = "python_data_analysis_with_pandas" },
+    { format = "sdist", include = "requirements.txt" },
+]
+readme = "README.md"
+repository = "https://github.com/mmmason-github/python_data_analysis_with_pandas/"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+jupyter-console = "^6.6.3"
+jupyter-server = "^2.4.0"
+jupyter-client = "^8.0.3"
+jupyter-core = "^5.2.0"
+jupyterlab = "^3.6.1"
+jupyterlab-pygments = "^0.2.2"
+jupyterlab-server = "^2.20.0"
+jupyterlab-widgets = "^3.0.5"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+flake8 = "^6.0.0"
+isort = "^5.12.0"
+nbqa = { extras = ["black", "flake8", "isort", "mypy"], version = "^1.6.3" }
+poethepoet = "^0.18.1"
+pre-commit = "^3.1.1"
+
+[tool.poetry.group.typing.dependencies]
+mypy = "^1.1.1"
+pydantic = "^1.10.6"
+typing-extensions = "^4.5.0"
