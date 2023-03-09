@@ -41,10 +41,10 @@ profile = "black"
 use_parentheses = true
 
 [tool.mypy]
-enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 check_untyped_defs = true
 disallow_any_generics = true
 disallow_untyped_defs = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 explicit_package_bases = true
 follow_imports = "silent"
 ignore_missing_imports = true
@@ -144,21 +144,21 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python",
-    "Topic :: Software Development :: Data Analysis",
+    "Topic :: Software Development :: Data Analysis with Pandas",
 ]
-description = "Set of notebooks of exploring data analysis in python"
+description = "Set of notebooks of exploring data analysis with pandas in python"
 documentation = "https://mmmason-github.github.io/python_data_analysis_with_pandas/docs"
 homepage = "https://mmmason-github.github.io/python_data_analysis_with_pandas/home"
 include = [
-    { format = "sdist", path = ".vscode/" },
-    { format = "sdist", path = "data/" },
-    { format = "sdist", path = "docs/" },
     { format = "sdist", path = ".editorconfig" },
     { format = "sdist", path = ".gitignore" },
     { format = "sdist", path = ".pre-commit-config.yaml" },
+    { format = "sdist", path = ".vscode/" },
     { format = "sdist", path = "LICENSE.txt" },
-    { format = "sdist", path = "pyproject.toml" },
     { format = "sdist", path = "README.md" },
+    { format = "sdist", path = "data/" },
+    { format = "sdist", path = "docs/" },
+    { format = "sdist", path = "pyproject.toml" },
 
 ]
 keywords = ["data analysis", "python"]

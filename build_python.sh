@@ -1,9 +1,9 @@
-poe check_nb;
 poe sort_nb;
 poe format_nb;
 poe lint_nb;
+poe check_nb;
 poe export;
-poe check_py;
 poe sort_py;
 poe format_py;
 poe lint_py;
+poe check_py;
