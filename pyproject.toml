@@ -87,51 +87,53 @@ mypy = 1
 check_nb = """
 nbqa
 mypy 
-    python_data_analysis_with_pandas/notebooks/*
-    python_data_analysis_with_pandas/python/*
+src/notebooks/*
 """
 check_py = """
 mypy 
-    python_data_analysis_with_pandas/python/*
+src/python/*
 """
 clean = """
-rm -rf .mypy_cache
-       dist
-       ./**/__pycache__
+rm -rf 
+./**/__pycache__/
+.mypy_cache/
+dist/
+src/python/
 """
 export = """
-jupyter nbconvert python_data_analysis_with_pandas/notebooks/*.ipynb 
-    --to         python
-    --output-dir python_data_analysis_with_pandas/python/
+jupyter 
+nbconvert 
+src/notebooks/*.ipynb 
+--to         python
+--output-dir src/python/
 """
 format_nb = """
 nbqa
 black 
-    python_data_analysis_with_pandas/notebooks/*
-    python_data_analysis_with_pandas/python/*
+src/notebooks/*
 """
 format_py = """
 black 
-    python_data_analysis_with_pandas/python/*
+src/python/*
 """
 lint_nb = """
 nbqa
 flake8 
-    python_data_analysis_with_pandas/notebooks/*
+src/notebooks/*
 """
 lint_py = """
 flake8 
-    python_data_analysis_with_pandas/python/*
+src/python/*
 """
 precommit = "pre-commit run --all-files"
 sort_nb = """
 nbqa
 isort 
-    python_data_analysis_with_pandas/notebooks/*
+src/notebooks/*
 """
 sort_py = """
 isort 
-    python_data_analysis_with_pandas/python/*
+src/python/*
 """
 
 [tool.poetry]
@@ -147,26 +149,29 @@ classifiers = [
 description = "Set of notebooks of exploring data analysis in python"
 documentation = "https://mmmason-github.github.io/python_data_analysis_with_pandas/docs"
 homepage = "https://mmmason-github.github.io/python_data_analysis_with_pandas/home"
+include = [
+    { format = "sdist", path = ".vscode/" },
+    { format = "sdist", path = "data/" },
+    { format = "sdist", path = "docs/" },
+    { format = "sdist", path = ".editorconfig" },
+    { format = "sdist", path = ".gitignore" },
+    { format = "sdist", path = ".pre-commit-config.yaml" },
+    { format = "sdist", path = "LICENSE.txt" },
+    { format = "sdist", path = "pyproject.toml" },
+    { format = "sdist", path = "README.md" },
+
+]
 keywords = ["data analysis", "python"]
 license = "LICENSE.txt"
 maintainers = ["mmmason <mmmason.github@gmail.com>"]
-name = "python_data_analysis_with_pandas"
-packages = [
-    { format = "sdist", include = ".editorconfig" },
-    { format = "sdist", include = "LICENSE.txt" },
-    { format = "sdist", include = "README.md" },
-    { format = "sdist", include = "docs/docs.html" },
-    { format = "sdist", include = "docs/home.html" },
-    { format = "sdist", include = "poetry.lock" },
-    { format = "sdist", include = "python_data_analysis_with_pandas" },
-    { format = "sdist", include = "requirements.txt" },
-]
+name = "src"
+packages = [{ format = "sdist", include = "src/" }]
 readme = "README.md"
 repository = "https://github.com/mmmason-github/python_data_analysis_with_pandas/"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.9,<3.12"
 jupyter-console = "^6.6.3"
 jupyter-server = "^2.4.0"
 jupyter-client = "^8.0.3"
@@ -175,6 +180,7 @@ jupyterlab = "^3.6.1"
 jupyterlab-pygments = "^0.2.2"
 jupyterlab-server = "^2.20.0"
 jupyterlab-widgets = "^3.0.5"
+pandas = "^1.5.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
@@ -186,5 +192,6 @@ pre-commit = "^3.1.1"
 
 [tool.poetry.group.typing.dependencies]
 mypy = "^1.1.1"
+pandas-stubs = "^1.5.3.230304"
 pydantic = "^1.10.6"
 typing-extensions = "^4.5.0"

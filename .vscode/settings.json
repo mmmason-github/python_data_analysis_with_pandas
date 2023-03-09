@@ -3,16 +3,13 @@
         79
     ],
     "files.exclude": {
-        "**.coverage": true,
         "**/.DS_Store": true,
-        "**/.benchmarks/": true,
         "**/.editorconfig": true,
         "**/.git": true,
         "**/.gitignore": true,
         "**/.hg": true,
         "**/.mypy_cache/": true,
-        "**/.pre-commit-config.yaml": true,
-        "**/.pytest_cache/": true,
+        "**/.pre-commit-config.yaml": false,
         "**/.svn": true,
         "**/.venv/": true,
         "**/CVS": true,
@@ -21,14 +18,17 @@
         "**/Thumbs.db": true,
         "**/__init__.py": true,
         "**/__pycache__": true,
-        "**/docs": true,
+        "**/build_python.sh": true,
+        "**/dist/": true,
+        "**/docs/": true,
         "**/poetry.lock": true,
         "**/pyproject.toml": true,
-        "**/requirements.txt": true,
-        "**/dist/": true
+        "**/requirements.txt": true
     },
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": false,
+    "http.proxyAuthorization": null,
+    "http.proxyStrictSSL": true,
     "json.format.enable": true,
     "json.format.keepLines": true,
     "jupyter.exportWithOutputEnabled": true,
@@ -37,7 +37,5 @@
     "python.linting.flake8Enabled": true,
     "python.linting.mypyEnabled": true,
     "python.testing.pytestEnabled": false,
-    "python.testing.unittestEnabled": false,
-    "http.proxyAuthorization": null,
-    "http.proxyStrictSSL": true
+    "python.testing.unittestEnabled": false
 }
