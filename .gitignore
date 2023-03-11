@@ -6,3 +6,4 @@ dist/
 poetry.lock
 .python-version
 course_notebooks/
+.ipynb_checkpoints
